@@ -2,7 +2,6 @@
 # Libraries
 # =============================
 import os
-import random
 import numpy as np
 from math import atan2
 from math import hypot as hyp
@@ -141,7 +140,7 @@ if __name__ == "__main__":
 	maxP = int(input("Maximum value of point: "))
 
 	# Randomly generate X and Y
-	genX = [x for x in [np.random.random_integers(0, maxP) for _ in range(nPoint)]]
+	genX = [x for x in [np.random.randint(0, maxP) for _ in range(nPoint)]]
 	genY = [x for x in [np.random.randint(0, maxP) for _ in range(nPoint)]]
 
 	# Merge X and Y together
@@ -157,6 +156,7 @@ if __name__ == "__main__":
 	centre = getCentre(ans)
 
 	# Sorting hulls for plotting
+	# Hulls are sorted by its angle towards centre point
 	ans.sort(key = lambda x : (atan2(x[1]-centre[1], x[0]-centre[0])))
 
 	# Separate X and Y because plt.plot() takes X and Y as separated arguments 
@@ -169,6 +169,7 @@ if __name__ == "__main__":
 	ansY.append(ans[0][1])
 
 	# Output list of Hulls
+	print()
 	print("Sequence of Hulls:")
 	for i in range(len(ans)-1):
 		l = ans[i]
