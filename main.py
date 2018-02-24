@@ -76,7 +76,7 @@ def solveQH(P, CH):
 # and recursively divide point thats located on the top side of line that passes through P to rightmost point 
 def FindHull(P, leftmost, rightmost):
 	# If theres no more point
-	if len(P) == 0:
+	if not P:
 		# return empty set of point
 		return []
 	else:
@@ -129,12 +129,14 @@ def FindHull(P, leftmost, rightmost):
 		return listofHull + topHull + bottomHull
 
 if __name__ == "__main__":
-
 	# Clearing screen for clarity
 	os.system("cls")
 
 	# Getting number of points
-	nPoint = int(input("Number of points: "))
+	nPoint = int(input("Number of points (min. 2): "))
+
+	# Silently set point to 2 if it is less than 2
+	nPoint = max(nPoint, 2)
 
 	# Getting maximum value of X and Y
 	maxP = int(input("Maximum value of point: "))
@@ -169,13 +171,14 @@ if __name__ == "__main__":
 	ansY.append(ans[0][1])
 
 	# Output list of Hulls
+	nHulls = len(ans)
 	print()
 	print("Sequence of Hulls:")
-	for i in range(len(ans)-1):
+	for i in range(nHulls):
 		l = ans[i]
-		r = ans[i+1]
+		r = ans[(i+1)%nHulls]
 		if l != r:
-			print("From {:>10} to {:}".format(str(ans[i]), str(ans[i+1])))
+			print("From {:>10} to {:}".format(str(l), str(r)))
 
 	# Plot all points as black circle
 	plt.plot(genX, genY, "ko")
