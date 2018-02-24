@@ -27,17 +27,19 @@ def whichSide(A, B, P):
 
 # For a line L that passes through point A to point B
 # This function returns the perpendicular distance from P to L
-def distPTL(A, B, P):
-	print(A, B, P)
+def distPTL(A, B, P, distAtoB):
 	numerator = abs(whichSide(A, B, P))
-	denominator = hyp((B[1]-A[1]), (B[0]-A[0]))
-	print(numerator, denominator)
-	return numerator/denominator
+	return numerator/distAtoB
+
+# This function calculates the distance between point A and point B
+def distPTP(A,B):
+	return hyp((B[1]-A[1]), (B[0]-A[0]))
 
 # This function initializes recursive calls for finding hulls
 def solveQH(P, CH):
 	# Sorting set of points by X first, then by Y
-	P.sort(key = lambda x : (x[0], x[1]))
+	# P.sort(key = lambda x : (x[0], x[1]))
+	P.sort()
 
 	# Finding leftmost point, rightmost point
 	# Lets say L is a line drawn from leftmost point to rightmost point
@@ -79,30 +81,41 @@ def FindHull(P, leftmost, rightmost):
 	else:
 		# Initialize distance to -1 as distance cant be negative 
 		currMaxDist = -1
+		# Precalculate distance of leftmost point to rightmost point
+		distLR = distPTP(leftmost, rightmost)
 
 		for point in P:
 			# Calculate distance of particular point to the line
-			pointDist = distPTL(leftmost, rightmost, point)
+			pointDist = distPTL(leftmost, rightmost, point, distLR)
 			currMaxDist = max(currMaxDist, pointDist)
+			# Getting farthest point
 			if currMaxDist == pointDist:
 				currP = point
 
+		# Initialize list of Hull in this section
 		listofHull = [currP]
 
+		# Getting all point with farthest distance
 		for point in P:
-			pointDist = distPTL(leftmost, rightmost, point)
+			pointDist = distPTL(leftmost, rightmost, point, distLR)
 			if currMaxDist == pointDist:
 				listofHull.append(point)
 
+		# Divide set of points into 2 sections
 		topP = []
 		botP = []
+
+		# Getting the value of side
 		sideRightmost = whichSide(leftmost, currP, rightmost)
 		sideLeftmost = whichSide(currP, rightmost, leftmost)
+
+
 		for point in P:
-			# if point == currP:
-			# 	continue
-			# else:
 			if point not in listofHull:
+				# For every point
+				# Determine if it is in the inside of triangle
+				# or in top side of line from leftmost point to farthest point
+				# or in the top side of line from farthest to rightmost point
 				l = whichSide(leftmost, currP, point)
 				r = whichSide(currP, rightmost, point)
 				if np.sign(l) != np.sign(sideRightmost):
@@ -110,13 +123,10 @@ def FindHull(P, leftmost, rightmost):
 				if np.sign(r) != np.sign(sideLeftmost):
 					botP.append(point)
 
-		print("Ini LRMost dan currP", leftmost, currP, rightmost)
-		print("Ini topP", topP)
-		print("Ini botP", botP)
-		tH = FindHull(topP, leftmost, currP)
-		bH = FindHull(botP, currP, rightmost)
-		print("Ini currP", currP, tH, bH)
-		return listofHull + tH + bH
+		# Recursively find Hull from both sections
+		topHull = FindHull(topP, leftmost, currP)
+		bottomHull = FindHull(botP, currP, rightmost)
+		return listofHull + topHull + bottomHull
 
 if __name__ == "__main__":
 	os.system("cls")
