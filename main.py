@@ -111,7 +111,6 @@ def FindHull(P, leftmost, rightmost):
 		sideRightmost = whichSide(leftmost, currP, rightmost)
 		sideLeftmost = whichSide(currP, rightmost, leftmost)
 
-
 		for point in P:
 			if point not in listofHull:
 				# For every point
