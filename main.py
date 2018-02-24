@@ -38,7 +38,7 @@ def distPTP(A,B):
 # This function initializes recursive calls for finding hulls
 def solveQH(P, CH):
 	# Sorting set of points by X
-	# P.sort()
+	P.sort()
 
 	# Finding leftmost point, rightmost point
 	# Lets say L is a line drawn from leftmost point to rightmost point
