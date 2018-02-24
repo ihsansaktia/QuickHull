@@ -177,11 +177,11 @@ if __name__ == "__main__":
 		if l != r:
 			print("From {:>10} to {:}".format(str(ans[i]), str(ans[i+1])))
 
-	# Plot all points as green circle
-	plt.plot(genX, genY, "go")
+	# Plot all points as black circle
+	plt.plot(genX, genY, "ko")
 
-	# Plot hulls as red circle and lines
-	plt.plot(list(ansX), list(ansY), "ro-")
+	# Plot hulls as green circle and lines
+	plt.plot(list(ansX), list(ansY), "go-")
 
 	# Shows the graph
 	plt.show()
