@@ -64,8 +64,11 @@ def solveQH(P, CH):
 			else:
 				bottomP.append(point)
 
+	# Initialize call to find Hull in the top and bottom section respectively
 	topH = FindHull(topP, leftmost, rightmost)
 	bottomH = FindHull(bottomP, rightmost, leftmost)
+
+	# Merge final answer
 	CH += [leftmost] + topH + bottomH + [rightmost]
 
 # For a line X that passes through leftmost point to rightmost point
