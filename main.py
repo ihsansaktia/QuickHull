@@ -129,6 +129,9 @@ def FindHull(P, leftmost, rightmost):
 		bottomHull = FindHull(botP, currP, rightmost)
 		return listofHull + topHull + bottomHull
 
+# ============
+# Main Program
+# ============
 if __name__ == "__main__":
 	# Clearing screen for clarity
 	os.system("cls")
