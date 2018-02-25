@@ -1,8 +1,8 @@
 # QuickHull
-Implementing Quick Hull on random generated points
+#### Implementation of Quick Hull on random generated points
 
 Pipenv file included 
 
-Or you can download the following library:
-	matplotlib
-	numpy
+Or download the following library:
+* matplotlib
+* numpy
