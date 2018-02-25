@@ -2,6 +2,7 @@
 # Libraries
 # =============================
 import os
+import time
 import numpy as np
 from math import atan2
 from math import hypot as hyp
@@ -141,6 +142,9 @@ if __name__ == "__main__":
 	# Getting maximum value of X and Y
 	maxP = int(input("Maximum value of point: "))
 
+	# Silently set maximum value of point to 100 if it is more than 100
+	maxP = min(abs(maxP), 100)
+
 	# Randomly generate X and Y
 	genX = [x for x in [np.random.randint(0, maxP) for _ in range(nPoint)]]
 	genY = [x for x in [np.random.randint(0, maxP) for _ in range(nPoint)]]
@@ -151,8 +155,15 @@ if __name__ == "__main__":
 	# Container for Hulls
 	ans = []
 
+	# Measuring time
+	print("Solving...")
+	then = time.time()
+
 	# Initialize QuickHull
 	solveQH(P, ans)
+
+	# Measuring time finished
+	now = time.time()-then
 
 	# Getting centre point of Hulls
 	centre = getCentre(ans)
@@ -173,6 +184,7 @@ if __name__ == "__main__":
 	# Output list of Hulls
 	nHulls = len(ans)
 	print()
+	print("Elapsed time: {}ms".format(now))
 	print("Sequence of Hulls:")
 	for i in range(nHulls):
 		l = ans[i]
