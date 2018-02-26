@@ -38,7 +38,7 @@ def distPTP(A,B):
 # This function initializes recursive calls for finding hulls
 def solveQH(P, CH):
 	# Sorting set of points by X
-	P.sort()
+	P.sort(key = lambda x : (x[0], x[1]))
 
 	# Finding leftmost point, rightmost point
 	# Lets say L is a line drawn from leftmost point to rightmost point
@@ -143,7 +143,7 @@ if __name__ == "__main__":
 	nPoint = max(nPoint, 2)
 
 	# Getting maximum value of X and Y
-	maxP = int(input("Maximum value of point: "))
+	maxP = int(input("Maximum value of point (max. 100): "))
 
 	# Silently set maximum value of point to 100 if it is more than 100
 	maxP = min(abs(maxP), 100)
